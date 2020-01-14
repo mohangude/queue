@@ -1,0 +1,49 @@
+public class FixedSizeArrayQueue<T> {
+    private T[] queue;
+    private int size;
+    private int maxS;
+    
+    public FixedSizeArrayQueue(int maxSize) {
+        queue = (T[]) new Object[maxSize];
+        size = -1;
+        maxS = maxSize;
+    }
+    
+    public void enqueue(T newItem) {
+        if(newItem == null){
+            throw new IllegalArgumentException();
+        }
+        if(size()==maxS){
+            throw new IllegalStateException();
+        }
+        queue[size+1] = newItem;
+        size++;
+    }
+    
+    public T dequeue() {
+        if(isEmpty()){
+            throw new IllegalStateException();
+        }
+        T out = queue[0];
+        for(int i=0; i<queue.length-1; i++){
+            queue[i] = queue[i+1];
+        }
+        size--;
+        return out;
+    }
+    
+    public T peek() {
+        if(isEmpty()){
+            throw new IllegalStateException();
+        }
+        return queue[0];
+    }
+    
+    public boolean isEmpty() {
+        return size+1==0;
+    }
+    
+    public int size() {
+        return size+1;
+    }
+}
